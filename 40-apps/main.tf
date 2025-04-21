@@ -17,6 +17,7 @@ module "mysql" {
   )
 }
 
+
 module "backend" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   
@@ -35,6 +36,7 @@ module "backend" {
     }
   )
 }
+
 
 module "frontend" {
   source  = "terraform-aws-modules/ec2-instance/aws"
@@ -66,7 +68,7 @@ module "ansible" {
   subnet_id              = local.public_subnet_id
 
   user_data = file("expense.sh")
-
+  
   tags = merge(
     var.common_tags,
     var.ansible_tags,
@@ -75,6 +77,7 @@ module "ansible" {
     }
   )
 }
+
 
 module "records" {
   source  = "terraform-aws-modules/route53/aws//modules/records"
